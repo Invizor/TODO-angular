@@ -1,0 +1,88 @@
+.boards{
+    width: 100%;
+    height: 80%;
+}
+
+.boards .myBoard{
+    display: inline-block;
+    margin: 20px;
+    padding-top: 10px;
+}
+
+.myBoard ul{
+    width:200px;
+    height:400px;
+    margin: 10px;
+    background:#ccc;
+    border-radius: 8px;
+    padding: 20px 10px 20px;
+    color:#666;
+}
+
+.myBoard button{
+    display: block;
+    width:200px;
+    height:40px;
+    border-radius: 4px;
+    color:#666;
+    float: inherit;
+    margin: 10px 20px 10px;
+}
+
+.myBoard .removeBoard{
+    width:20px;
+    height:20px;
+    float: right;
+    display:inline-block;
+}
+
+.myBoard ul li .removeTask{
+    width:15px;
+    height:15px;
+    margin: 6px;
+    float:right;
+}
+
+.myBoard ul li input{
+    width:15px;
+    height:15px;
+    margin: 6px 5px 10px;
+    float:left;
+}
+
+.myBoard ul li .taskText{
+    float:left;
+}
+
+.myBoard input{
+    width:200px;
+    height:30px;
+    border-radius: 4px;
+    font-size: 14px;
+    color:#666;
+    float: inherit;
+    margin: 10px 20px 10px;
+}
+
+.boards ul li{
+    width:150px;
+    height:30px;
+    background: whitesmoke;
+    color:#666;
+    font-size:16px;
+    padding: 5px 10px 5px;
+    margin: 10px auto 10px;
+    horiz-align: center;
+    border-radius: 8px;
+    line-height: 30px;
+}
+
+.addBoard button{
+    width: 200px;
+    height: 40px;
+    margin: 0 20px 0;
+}
+
+.lineThrough {
+    text-decoration: line-through;
+}

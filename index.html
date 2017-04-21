@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!--<script src="node_modules/angular/angular.js"></script>-->
+    <!--<script src="./public/bundle.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="./style/main.css">
+</head>
+<body ng-controller="boards" ng-init="init()">
+
+    <div class="boards" ng-controller="board" ng-init="init()">
+        <div class="myBoard" ng-repeat="board in boards track by $index">
+            <div class="titleBoard">{{board.title}}</div>
+            <img class="removeBoard" src="./image/knop.png" ng-click="removeBoard($index)"/>
+            <ul>
+                <li type="none" ng-repeat="task in getTaskForCurrentBoard(board.idBoard) track by $index">
+                    <input title="checkTask" type="checkbox" ng-model="task.flComplete" ng-change="completeTask(task.idTask)" />
+                    <div ng-class="task.flComplete ? 'taskText lineThrough' : 'taskText'">
+                        {{task.text}}
+                    </div>
+                    <img class="removeTask" src="./image/removeTask.png" ng-click="removeTask(task.idTask)"/>
+                </li>
+            </ul>
+            <input title="nameTask" class="nameTask" type="text" ng-model="board.inputValue"/>
+            <button ng-click="addTask(board.idBoard)">add task</button>
+        </div>
+    </div>
+    <div class="addBoard">
+        <button ng-click="addBoard()">add board</button>
+    </div>
+</body>
+</html>
