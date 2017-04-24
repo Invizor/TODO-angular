@@ -46,13 +46,3 @@ export default function repositoryService() {
 
   return this;
 };
-
-
-function test() {
-  return {
-    addBoard: function() {console.log('blalbjalk')}
-  };
-}
-
-let factory = test();
-let servic = new repositoryService();

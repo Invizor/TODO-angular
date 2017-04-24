@@ -1,0 +1,7 @@
+
+<div class="boards">
+    <board data="board" on-remove="dataBoards.removeBoard($index)" ng-repeat="board in dataBoards.boards track by $index "> </board>
+</div>
+<div class="addBoard">
+    <button ng-click="dataBoards.addBoard()">add board</button>
+</div>

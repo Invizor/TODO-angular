@@ -1,0 +1,15 @@
+<div class="myBoard">
+    <div class="titleBoard">{{dataBoard.data.title}}</div>
+    <img class="removeBoard" src="../../image/knop.png" ng-click="dataBoard.removeBoard()"/>
+    <ul>
+        <li type="none" ng-repeat="task in dataBoard.getTaskForCurrentBoard(dataBoard.data.idBoard) track by $index">
+            <input title="checkTask" type="checkbox" ng-model="task.flComplete" ng-change="dataBoard.completeTask(task.idTask)" />
+            <div ng-class="task.flComplete ? 'taskText lineThrough' : 'taskText'">
+                {{task.text}}
+            </div>
+            <img class="removeTask" src="../../image/removeTask.png" ng-click="dataBoard.removeTask(task.idTask)"/>
+        </li>
+    </ul>
+    <input title="nameTask" class="nameTask" type="text" ng-model="dataBoard.data.inputValue"/>
+    <button ng-click="dataBoard.addTask(dataBoard.data.idBoard)">add task</button>
+</div>

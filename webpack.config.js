@@ -12,7 +12,7 @@ const helpers = {
 
 module.exports = {
   watch: true,
-  entry: './controller/main.js',
+  entry: './src/app.js',
   devtool: 'cheap-module-eval-source-map',
 
   output: {
