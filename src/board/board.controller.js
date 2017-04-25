@@ -1,5 +1,4 @@
 
-
 export default class boardComponentController{
   constructor($scope, LocalStorage){
     this.$scope = $scope;
@@ -24,6 +23,8 @@ export default class boardComponentController{
       this.tasks = this.tasks.filter((item) => { return (item.idBoard !== id) });
       this.LocalStorage.add_obj("tasks",this.tasks);
     });
+
+    this.onChangeTitle.bind(this);
   }
 
   updateData(){
@@ -109,4 +110,31 @@ export default class boardComponentController{
   removeBoard() {
     this.onRemove();
   }
+
+  //редактирование таска
+  onChangeTask(title, context,idTask) {
+    context.tasks.map((task)=> {
+      if (task.idTask == idTask) {
+        task.text = title;
+      }
+    });
+
+    context.LocalStorage.add_obj("tasks",context.tasks);
+  }
+
+  //редактирование title board
+  onChangeTitle(title, context,idBoard){
+    context.data.title = title;
+
+    let arr = context.LocalStorage.get_obj("boards");
+
+    arr.map((board) => {
+      if(board.idBoard == idBoard){
+        board.title = title;
+      }
+    });
+
+    context.LocalStorage.add_obj("boards",arr);
+  }
+
 };

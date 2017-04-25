@@ -43,7 +43,7 @@ export default class boardsComponentController{
     this.boards.push({
       "idBoard" : (this.currentId+1),
       "inputValue" : "",
-      "title": ""
+      "title": "Введите название"
     });
     this.LocalStorage.add_obj("boards",this.boards);
     this.currentId++;

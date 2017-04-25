@@ -43,7 +43,7 @@
     float:right;
 }
 
-.myBoard ul li input{
+.myBoard ul li .checkInput{
     width:15px;
     height:15px;
     margin: 6px 5px 10px;
@@ -54,7 +54,7 @@
     float:left;
 }
 
-.myBoard input{
+.myBoard .nameTask{
     width:200px;
     height:30px;
     border-radius: 4px;
@@ -85,4 +85,12 @@
 
 .lineThrough {
     text-decoration: line-through;
+}
+
+.myBoard ul li input{
+    width: 80px;
+}
+
+.titleBoard{
+    text-align: center;
 }
