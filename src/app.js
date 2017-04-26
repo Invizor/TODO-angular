@@ -6,7 +6,7 @@ import BoardsController from './pages/boards.controller';
 
 import inputTitle from './directives/input-title';
 
-angular.module('myApp', [])
+angular.module('myApp', [require('angular-ui-router')])
   .service('LocalStorage', LocalStorage)
   .controller('boardsController', BoardsController)
   .directive('inputTitle', inputTitle)
@@ -23,4 +23,36 @@ angular.module('myApp', [])
       data: '=',
       onRemove: '&'
     }
+  })
+  .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+
+    // Любые неопределенные url перенаправлять на /
+    //$urlRouterProvider.otherwise("/");
+
+    $locationProvider.html5Mode(true);
+    // определяем состояния
+
+    $stateProvider
+      .state('Boards', {
+        url: "/",
+        templateUrl: "src/pages/boards.page.html",
+        controller: 'boardsController',
+        controllerAs: '$boards'
+        // template: `<h1>Hello world</h1>`
+      })
+      /*.state('Board', {
+        url: "/board/:id",
+        template: "<h1>{{vm.title}}</h1>",
+        controller: function($state) {
+          this.title = $state.params.id;
+        },
+        controllerAs: 'vm'
+        // template: `<h1>Hello world</h1>`
+      })*/
+      /*.state('Board', {
+        url: "/board/:title",
+        templateUrl: "src/board/board.template.html",
+        controlller: Board,
+        controllerAs: 'dataBoard'
+      })*/
   });

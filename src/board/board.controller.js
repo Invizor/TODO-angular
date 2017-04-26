@@ -4,107 +4,83 @@ export default class boardComponentController{
     this.$scope = $scope;
     this.LocalStorage = LocalStorage;
     //this.data = data;
-    
-    this.currentId = 1;
-    this.tasks = [];
 
-    let maxCurrentId = 1;
-    let arr = this.LocalStorage.get_obj("tasks");
-    if(arr){
-      for(let i = 0; i < arr.length; i++){
-        if(arr[i].idTask > maxCurrentId ) maxCurrentId = arr[i].idTask+1;
-      }
-      this.tasks = arr;
-      this.currentId = maxCurrentId;
-    }
+    this.tasks = null;
+
 
     this.$scope.$on('task.remove', (event, id) => {
       console.log("Emitter");
-      this.tasks = this.tasks.filter((item) => { return (item.idBoard !== id) });
-      this.LocalStorage.add_obj("tasks",this.tasks);
+      let arr = this.LocalStorage.getTasks();
+      arr = arr.filter((item) => { return (item.idBoard !== id) });
+      this.LocalStorage.setTasks(arr);
     });
 
     this.onChangeTitle.bind(this);
   }
 
-  updateData(){
-    this.currentId = 1;
-    this.tasks = [];
-    let maxCurrentId = 1;
-    let arr = this.LocalStorage.get_obj("tasks");
-    if(arr){
-      for(let i = 0; i < arr.length; i++){
-        if(arr[i].idTask > maxCurrentId ) maxCurrentId = arr[i].idTask+1;
-      }
-      this.tasks = arr;
-      this.currentId = maxCurrentId;
-    }
+  $onInit(){
+    this.$scope.$on('tasks.init', () => {
+      this.init(this.data.idBoard);
+    });
+    this.init(this.data.idBoard);
+  }
+
+  init(idBoard) {
+    //console.log("data",this);
+    this.tasks =  this.LocalStorage.getTasksByIdBoard(idBoard);
+    console.log("tasks",this.tasks);
   }
 
   addTask(idBoard){
-    console.log("addTask", idBoard);
-
-    //обновление массива тасков
-    this.updateData();
-
-    this.tasks.push({
+    this.LocalStorage.addTask({
       "idBoard" : idBoard,
-      "idTask" : (this.currentId+1),
+      "idTask" : 0,
       "text" : this.data.inputValue,
       "flComplete": false
     });
-    this.currentId++;
 
     this.data.inputValue = "";
 
-    this.LocalStorage.add_obj("tasks",this.tasks);
+    this.init(idBoard);
+    console.log("this.tasks",this.tasks);
 
   };
 
   getTaskForCurrentBoard(idBoard){
 
     console.log("getTaskForCurrentBoard");
-    return this.tasks.filter((task) => {
+
+    let arr = this.LocalStorage.getTasks();
+
+    console.log("arrT",arr);
+
+    return arr.filter((task) => {
       return (task.idBoard == idBoard);
     });
   };
 
   removeTask(taskId){
 
-    //обновление массива тасков
-    this.updateData();
-
     console.log("removeTask");
-    let index = 0;
-    console.log("tasks",this.tasks);
-    console.log("taskId",taskId);
-    for(let i = 0; i < this.tasks.length; i++){
-      console.log("i=", i);
-      if(this.tasks[i].idTask == taskId){
-        index = i;
-        break;
-      }
-    }
-    this.tasks.splice(index,1);
-    this.LocalStorage.add_obj("tasks",this.tasks);
+    this.LocalStorage.removeTask(taskId);
+
+    this.init(this.data.idBoard);
   };
 
   completeTask(idTask){
 
-    //обновление массива тасков
-    this.updateData();
-
+    let arr = this.LocalStorage.getTasks();
     let index = 0;
-    for(let i=0; i < this.tasks.length; i++){
-      if(this.tasks[i].idTask ==idTask){
+    for(let i=0; i < arr.length; i++){
+      if(arr[i].idTask ==idTask){
         index = i;
         break;
       }
     }
 
-    this.tasks[index].flComplete = !this.tasks[index].flComplete;
+    arr[index].flComplete = !arr[index].flComplete;
 
-    this.LocalStorage.add_obj("tasks",this.tasks);
+    this.LocalStorage.setTasks(arr);
   }
 
   removeBoard() {
@@ -119,14 +95,14 @@ export default class boardComponentController{
       }
     });
 
-    context.LocalStorage.add_obj("tasks",context.tasks);
+    context.LocalStorage.setTasks(context.tasks);
   }
 
   //редактирование title board
   onChangeTitle(title, context,idBoard){
     context.data.title = title;
 
-    let arr = context.LocalStorage.get_obj("boards");
+    let arr = context.LocalStorage.getBoards();
 
     arr.map((board) => {
       if(board.idBoard == idBoard){
@@ -134,7 +110,7 @@ export default class boardComponentController{
       }
     });
 
-    context.LocalStorage.add_obj("boards",arr);
+    context.LocalStorage.setBoards(arr);
   }
 
 };

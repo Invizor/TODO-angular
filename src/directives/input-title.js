@@ -7,7 +7,7 @@ export default function(
     restrict: 'E',
     template: `
       <div>
-        <div class="titleBoard" ng-if="!view.showInput" ng-click="edit()">{{inTitle}}</div>
+        <div class="scope.myClass" ng-if="!view.showInput" ng-click="edit()">{{inTitle}}</div>
         <form ng-submit="save()" ng-if="view.showInput">
           <div class="form-group">
             <input type="text" class="form-control" ng-model="view.titleToSave">
@@ -20,6 +20,7 @@ export default function(
       inTitle: '=',
       context: '<',
       idMy: '<',
+      myClass: '<'
     },
     link: function(scope, elem, attr) {
 

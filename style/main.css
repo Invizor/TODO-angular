@@ -52,6 +52,7 @@
 
 .myBoard ul li .taskText{
     float:left;
+    width: 100px;
 }
 
 .myBoard .nameTask{
@@ -65,7 +66,7 @@
 }
 
 .boards ul li{
-    width:150px;
+    width:160px;
     height:30px;
     background: whitesmoke;
     color:#666;
@@ -93,4 +94,9 @@
 
 .titleBoard{
     text-align: center;
+}
+
+.boards ul li .textBoard{
+    text-align: center;
+    font-size: 14px;
 }
