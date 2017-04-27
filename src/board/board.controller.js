@@ -1,7 +1,8 @@
 
 export default class boardComponentController{
-  constructor($scope, LocalStorage){
+  constructor($scope, LocalStorage,$state){
     this.$scope = $scope;
+    this.$state = $state;
     this.LocalStorage = LocalStorage;
     //this.data = data;
 
@@ -22,6 +23,7 @@ export default class boardComponentController{
     this.$scope.$on('tasks.init', () => {
       this.init(this.data.idBoard);
     });
+    console.log("this.data",this.data);
     this.init(this.data.idBoard);
   }
 
@@ -113,4 +115,9 @@ export default class boardComponentController{
     context.LocalStorage.setBoards(arr);
   }
 
+
+  goToBoard(idBoard) {
+    console.log("this",this);
+    this.$state.go("currentBoard",{ id: idBoard});
+  }
 };

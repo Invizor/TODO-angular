@@ -3,12 +3,14 @@ import Boards from './boards/boards.controller';
 import Board from './board/board.controller';
 import LocalStorage from './services/local-storage';
 import BoardsController from './pages/boards.controller';
+import BoardController from './pages/board.controller';
 
 import inputTitle from './directives/input-title';
 
 angular.module('myApp', [require('angular-ui-router')])
   .service('LocalStorage', LocalStorage)
   .controller('boardsController', BoardsController)
+  .controller('boardController', BoardController)
   .directive('inputTitle', inputTitle)
   .component('boards', {
     controller: Boards,
@@ -25,7 +27,6 @@ angular.module('myApp', [require('angular-ui-router')])
     }
   })
   .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-
     // Любые неопределенные url перенаправлять на /
     //$urlRouterProvider.otherwise("/");
 
@@ -38,6 +39,13 @@ angular.module('myApp', [require('angular-ui-router')])
         templateUrl: "src/pages/boards.page.html",
         controller: 'boardsController',
         controllerAs: '$boards'
+        // template: `<h1>Hello world</h1>`
+      })
+      .state('currentBoard', {
+        url: "/board/:id",
+        template: '<board data="$myBoard.data"> </board>',
+        controller: 'boardController',
+        controllerAs: '$myBoard'
         // template: `<h1>Hello world</h1>`
       })
       /*.state('Board', {

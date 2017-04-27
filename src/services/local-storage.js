@@ -146,5 +146,13 @@ export default function repositoryService() {
     this.add_obj('tasks',arrTasks);
   };
 
+  this.getBoardById = function(idBoard) {
+    let index = 0;
+    for(let i = 0; i < this._boards.length; i++){
+      if(this._boards[i].idBoard == idBoard) index = i;
+    }
+    return this._boards.slice(index,index+1)[0];
+  };
+
   return this;
 };
